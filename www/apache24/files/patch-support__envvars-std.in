@@ -1,0 +1,11 @@
+--- ./support/envvars-std.in.orig	2012-03-08 11:10:51.000000000 -0500
++++ ./support/envvars-std.in	2012-09-08 07:37:41.529795647 -0400
+@@ -26,3 +26,8 @@
+ export @SHLIBPATH_VAR@
+ #
+ @OS_SPECIFIC_VARS@
++ENVVARS_DIR=%%PREFIX%%/etc/apache24/envvars.d
++for envvars_file in $(ls ${ENVVARS_DIR}/*.env 2>/dev/null)
++do
++	. ${envvars_file}
++done

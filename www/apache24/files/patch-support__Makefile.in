@@ -1,0 +1,23 @@
+--- ./support/Makefile.in.orig	2011-12-20 09:57:46.000000000 -0500
++++ ./support/Makefile.in	2012-09-08 07:22:37.312570108 -0400
+@@ -17,16 +17,19 @@
+ 	@test -d $(DESTDIR)$(sbindir) || $(MKINSTALLDIRS) $(DESTDIR)$(sbindir)
+ 	@test -d $(DESTDIR)$(libexecdir) || $(MKINSTALLDIRS) $(DESTDIR)$(libexecdir)
+ 	@cp -p $(top_builddir)/server/httpd.exp $(DESTDIR)$(libexecdir)
+-	@for i in apxs dbmmanage; do \
++	@chown root:wheel $(DESTDIR)$(libexecdir)/httpd.exp
++	@for i in apxs dbmmanage split-logfile; do \
+ 	    if test -f "$(builddir)/$$i"; then \
+ 	        cp -p $$i $(DESTDIR)$(bindir); \
+ 	        chmod 755 $(DESTDIR)$(bindir)/$$i; \
++	        chown root:wheel $(DESTDIR)$(bindir)/$$i; \
+ 	    fi ; \
+ 	done
+ 	@for i in apachectl; do \
+ 	    if test -f "$(builddir)/$$i"; then \
+ 	        cp -p $$i $(DESTDIR)$(sbindir); \
+ 	        chmod 755 $(DESTDIR)$(sbindir)/$$i; \
++	        chown root:wheel $(DESTDIR)$(sbindir)/$$i; \
+ 	    fi ; \
+ 	done
+ 	@if test -f "$(builddir)/envvars-std"; then \
